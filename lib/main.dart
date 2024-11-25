@@ -7,7 +7,6 @@ import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/vehicles_screen.dart';
 import 'screens/add_vehicle_screen.dart';
-import 'screens/history_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/vehicle_details_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,9 +36,8 @@ class MyApp extends StatelessWidget {
         '/add_vehicle': (context) => AddVehicleScreen(),
         '/add_fuel': (context) => AddFuelScreen(vehicleId: ''), 
         '/fuel_history': (context) => FuelHistoryScreen(vehicleId: ''),
-        '/history': (context) => HistoryScreen(),
         '/profile': (context) => ProfileScreen(),
-        '/vehicle_details': (context) => VehicleDetailsScreen(),
+        '/vehicle_details': (context) => VehicleDetailsScreen(vehicleId: ""),
       },
     );
   }

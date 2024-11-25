@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'add_fuel_screen.dart'; 
@@ -13,7 +12,11 @@ class VehiclesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Meus Veículos')),
+      appBar: AppBar(
+        title: Text('Meus Veículos'),
+        backgroundColor: Colors.blue,
+      ),
+      backgroundColor: Colors.grey[900],
       body: FutureBuilder<QuerySnapshot>(
         future: _fetchVehicles(),
         builder: (context, snapshot) {
@@ -22,11 +25,11 @@ class VehiclesScreen extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar veículos'));
+            return Center(child: Text('Erro ao carregar veículos', style: TextStyle(color: Colors.white)));
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Nenhum veículo cadastrado'));
+            return Center(child: Text('Nenhum veículo cadastrado', style: TextStyle(color: Colors.white)));
           }
 
           final vehicles = snapshot.data!.docs;
@@ -38,9 +41,16 @@ class VehiclesScreen extends StatelessWidget {
               final vehicleId = vehicle.id;
 
               return Card(
+                color: Colors.grey[800],
                 child: ListTile(
-                  title: Text(vehicle['name']),
-                  subtitle: Text("Modelo: ${vehicle['model']}, Placa: ${vehicle['plate']}"),
+                  title: Text(
+                    vehicle['name'],
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    "Modelo: ${vehicle['model']}, Placa: ${vehicle['plate']}",
+                    style: TextStyle(color: Colors.white70),
+                  ),
                   trailing: IconButton(
                     icon: Icon(Icons.add, color: Colors.green),
                     onPressed: () {

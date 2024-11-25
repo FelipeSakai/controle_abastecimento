@@ -13,7 +13,9 @@ class HomeScreen extends StatelessWidget {
         MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao fazer logout: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao fazer logout: $e')),
+      );
     }
   }
 
@@ -22,14 +24,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tela Principal'),
+        backgroundColor: Colors.blue,
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: () => _logout(context), 
+            onPressed: () => _logout(context),
           ),
         ],
       ),
-      body: Center(child: Text('Bem-vindo à tela principal!')),
+      backgroundColor: Colors.grey[900],
+      body: Center(
+        child: Text(
+          'Bem-vindo à tela principal!',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
     );
   }
 }

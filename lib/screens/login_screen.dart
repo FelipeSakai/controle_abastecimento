@@ -13,7 +13,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
-  // Função para login
   Future<void> _login() async {
     try {
       await _auth.signInWithEmailAndPassword(
@@ -32,37 +31,82 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(
+        title: Text('Login'),
+        backgroundColor: Colors.blue,
+      ),
+      backgroundColor: Colors.grey[900],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'E-mail'),
+              decoration: InputDecoration(
+                labelText: 'E-mail',
+                labelStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.grey[800],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.emailAddress,
             ),
+            SizedBox(height: 10),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Senha'),
+              decoration: InputDecoration(
+                labelText: 'Senha',
+                labelStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.grey[800],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
               obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _login,
-              child: Text('Entrar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: Center(
+                child: Text(
+                  'Entrar',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
             ),
+            SizedBox(height: 10),
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/register');
               },
-              child: Text('Não tem uma conta? Cadastre-se'),
+              child: Text(
+                'Não tem uma conta? Cadastre-se',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/forgot_password');
               },
-              child: Text('Esqueceu a senha?'),
+              child: Text(
+                'Esqueceu a senha?',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
           ],
         ),
