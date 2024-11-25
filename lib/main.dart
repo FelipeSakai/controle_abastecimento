@@ -1,3 +1,5 @@
+import 'package:controle_abastecimento/screens/forgot_password_screen.dart';
+import 'package:controle_abastecimento/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
@@ -14,7 +16,7 @@ void main() async {
 await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
-runApp(const MyApp());
+runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+        '/forgot_password': (context) => ForgotPasswordScreen(),
         '/home': (context) => HomeScreen(),
         '/vehicles': (context) => VehiclesScreen(),
         '/add_vehicle': (context) => AddVehicleScreen(),

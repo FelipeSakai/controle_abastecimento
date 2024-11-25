@@ -1,38 +1,37 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'home_screen.dart';
+import 'home_screen.dart'; 
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
-  // Função para login
-  Future<void> _login() async {
+  Future<void> _register() async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()), 
       );
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Erro ao fazer login: $e');
+      Fluttertoast.showToast(msg: 'Erro ao criar conta: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Cadastro')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -49,20 +48,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _login,
-              child: Text('Entrar'),
+              onPressed: _register,
+              child: Text('Cadastrar'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/login');
               },
-              child: Text('Não tem uma conta? Cadastre-se'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/forgot_password');
-              },
-              child: Text('Esqueceu a senha?'),
+              child: Text('Já tem uma conta? Faça login'),
             ),
           ],
         ),

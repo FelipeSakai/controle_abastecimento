@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AddVehicleScreen extends StatelessWidget {
@@ -6,6 +7,29 @@ class AddVehicleScreen extends StatelessWidget {
   final TextEditingController _modelController = TextEditingController();
   final TextEditingController _yearController = TextEditingController();
   final TextEditingController _plateController = TextEditingController();
+
+  Future<void> _saveVehicle(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        CollectionReference vehicles = FirebaseFirestore.instance.collection('vehicles');
+        
+        // Adicionar um novo veículo à coleção
+        await vehicles.add({
+          'name': _nameController.text,
+          'model': _modelController.text,
+          'year': _yearController.text,
+          'plate': _plateController.text,
+          'userId': 'userId', 
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Veículo cadastrado com sucesso!')));
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao cadastrar veículo: $e')));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +66,7 @@ class AddVehicleScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Implementar lógica de salvar veículo no Firebase
-                    Navigator.pop(context);
-                  }
-                },
+                onPressed: ()=>_saveVehicle(context),
                 child: Text('Salvar'),
               ),
             ],
