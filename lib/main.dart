@@ -1,4 +1,6 @@
+import 'package:controle_abastecimento/screens/add_fuel_screen.dart';
 import 'package:controle_abastecimento/screens/forgot_password_screen.dart';
+import 'package:controle_abastecimento/screens/fuel_history_screen.dart';
 import 'package:controle_abastecimento/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/vehicles': (context) => VehiclesScreen(),
         '/add_vehicle': (context) => AddVehicleScreen(),
+        '/add_fuel': (context) => AddFuelScreen(vehicleId: ''), 
+        '/fuel_history': (context) => FuelHistoryScreen(vehicleId: ''),
         '/history': (context) => HistoryScreen(),
         '/profile': (context) => ProfileScreen(),
         '/vehicle_details': (context) => VehicleDetailsScreen(),
