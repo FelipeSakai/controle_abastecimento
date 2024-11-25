@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
+
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Usuário Exemplo"),
-            accountEmail: Text("exemplo@email.com"),
+            accountName: Text(user?.displayName ?? "Usuário"),
+            accountEmail: Text(user?.email ?? "Sem e-mail"),
             currentAccountPicture: CircleAvatar(
               child: Icon(Icons.person, size: 40),
             ),
@@ -52,6 +57,7 @@ class CustomDrawer extends StatelessWidget {
             title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
             onTap: () async {
+              await _auth.signOut();
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),

@@ -2,25 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../widgets/custom_drawer.dart';
+import 'add_fuel_screen.dart';
 
 class FuelHistoryScreen extends StatelessWidget {
-  final String vehicleId;
-
-  FuelHistoryScreen({required this.vehicleId});
-
   Stream<QuerySnapshot> _fetchFuelHistory() {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     return FirebaseFirestore.instance
         .collection('fuel_records')
-        .where('userId', isEqualTo: userId)
-        .where('vehicleId', isEqualTo: vehicleId)
-        .orderBy('date', descending: true)
+        .where('userId', isEqualTo: userId) // Apenas filtra por userId
+        .orderBy('date', descending: true) // Ordena por data, do mais recente ao mais antigo
         .snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Histórico de Abastecimentos'),
         backgroundColor: Colors.blue,
@@ -34,7 +32,12 @@ class FuelHistoryScreen extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar histórico', style: TextStyle(color: Colors.white)));
+            return Center(
+              child: Text(
+                'Erro ao carregar histórico',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {

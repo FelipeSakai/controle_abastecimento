@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:controle_abastecimento/screens/vehicles_screen.dart';
 import 'package:flutter/material.dart';
 
 class AddVehicleScreen extends StatelessWidget {
@@ -12,18 +13,22 @@ class AddVehicleScreen extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       try {
         CollectionReference vehicles = FirebaseFirestore.instance.collection('vehicles');
-        
+
         await vehicles.add({
           'name': _nameController.text,
           'model': _modelController.text,
           'year': _yearController.text,
           'plate': _plateController.text,
-          'userId': 'userId', 
+          'userId': 'userId',
         });
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Veículo cadastrado com sucesso!')));
 
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VehiclesScreen(),
+            ));
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao cadastrar veículo: $e')));
       }

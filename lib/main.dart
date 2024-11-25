@@ -14,10 +14,10 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
-runApp( MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/vehicles': (context) => VehiclesScreen(),
         '/add_vehicle': (context) => AddVehicleScreen(),
-        '/add_fuel': (context) => AddFuelScreen(vehicleId: ''), 
-        '/fuel_history': (context) => FuelHistoryScreen(vehicleId: ''),
+        '/add_fuel': (context) => AddFuelScreen(vehicleId: ''),
+        '/history': (context) => FuelHistoryScreen(),
         '/profile': (context) => ProfileScreen(),
         '/vehicle_details': (context) => VehicleDetailsScreen(vehicleId: ""),
       },

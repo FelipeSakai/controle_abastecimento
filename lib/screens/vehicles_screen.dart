@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:controle_abastecimento/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'add_fuel_screen.dart'; 
+import 'add_fuel_screen.dart';
+import 'add_vehicle_screen.dart'; // Import da tela de cadastro de veículo
 
 class VehiclesScreen extends StatelessWidget {
   Future<QuerySnapshot> _fetchVehicles() async {
-    return FirebaseFirestore.instance
-        .collection('vehicles')
-        .get();
+    return FirebaseFirestore.instance.collection('vehicles').get();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Meus Veículos'),
         backgroundColor: Colors.blue,
@@ -25,11 +26,21 @@ class VehiclesScreen extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar veículos', style: TextStyle(color: Colors.white)));
+            return Center(
+              child: Text(
+                'Erro ao carregar veículos',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Nenhum veículo cadastrado', style: TextStyle(color: Colors.white)));
+            return Center(
+              child: Text(
+                'Nenhum veículo cadastrado',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
 
           final vehicles = snapshot.data!.docs;
@@ -67,6 +78,18 @@ class VehiclesScreen extends StatelessWidget {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddVehicleScreen(), // Direciona para a tela de cadastro
+            ),
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }

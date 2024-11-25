@@ -22,7 +22,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
     try {
       String userId = _auth.currentUser!.uid;
       String vehicleId = widget.vehicleId;
-      DateTime date = DateFormat('yyyy-MM-dd').parse(_dateController.text.trim());
+      DateTime date = DateFormat('dd/MM/yyyy').parse(_dateController.text.trim());
 
       await FirebaseFirestore.instance.collection('fuel_records').add({
         'userId': userId,
@@ -51,7 +51,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
         title: Text('Novo Abastecimento'),
         backgroundColor: Colors.blue,
       ),
-      backgroundColor: Colors.grey[900], 
+      backgroundColor: Colors.grey[900],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -61,7 +61,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               controller: _litersController,
               decoration: InputDecoration(
                 labelText: 'Quantidade de Litros',
-                labelStyle: TextStyle(color: Colors.white70), 
+                labelStyle: TextStyle(color: Colors.white70),
                 filled: true,
                 fillColor: Colors.grey[800],
                 border: OutlineInputBorder(
@@ -113,12 +113,12 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     return Theme(
                       data: Theme.of(context).copyWith(
                         colorScheme: ColorScheme.dark(
-                          primary: Colors.blue, 
-                          onPrimary: Colors.white, 
+                          primary: Colors.blue,
+                          onPrimary: Colors.white,
                           surface: const Color.fromARGB(255, 59, 59, 59),
-                          onSurface: Colors.white, 
+                          onSurface: Colors.white,
                         ),
-                        dialogBackgroundColor: Colors.grey[900], 
+                        dialogBackgroundColor: Colors.grey[900],
                       ),
                       child: child!,
                     );

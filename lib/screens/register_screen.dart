@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -19,9 +18,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.pushReplacement(
+      Fluttertoast.showToast(msg: 'Sucesso ao criar conta !');
+      Navigator.pop(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()), 
       );
     } catch (e) {
       Fluttertoast.showToast(msg: 'Erro ao criar conta: $e');
